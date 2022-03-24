@@ -1,0 +1,26 @@
+body{
+    background-color: aquamarine;
+}
+input{
+width: 206px;
+box-sizing: border-box;
+}
+
+#calc{
+    display: block;
+    max-width: 206;
+}
+#calc button{
+    width: 50px;
+    position: relative;
+    height: 30px;
+    margin: 0px 2px 2px 0px;
+    background-color: rgb(179, 179, 179);
+    border: 1px solid grey;
+    
+}
+.num {
+    background-color: white;
+}
+#buttons{
+}
