@@ -19,9 +19,10 @@ if ($b > $c){
     $c = $temp;
 }
 
-if ($a$a+$b$b==$c*$c){
+if ($a*$a+$b*$b==$c*$c){
     echo "Jest to pitagoras";
 }else{
     echo "Nie jest to pitagoras";
 }
 echo "$a $b $c";
+?>
