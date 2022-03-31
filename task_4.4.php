@@ -24,7 +24,7 @@ function isPrime($number)
     }
     return true;
 }
-$numberToCheck = 2137;
+$numberToCheck = 16127;
 echo "<h1> Liczba $numberToCheck";
 
 if (!(isPrime($numberToCheck))) {
