@@ -1,10 +1,11 @@
 <?php
 $arrayOfSubpages = array(
-    array('nazwa'=>'podstrona 1', 'link'=>'site1.php', 'tresc'=>'Generyczna zawartość strony 1'),
-    array('nazwa'=>'podstrona 2', 'link'=>'site2.php', 'tresc'=>'Generyczna zawartość strony 2'),
-    array('nazwa'=>'podstrona 3', 'link'=>'site3.php', 'tresc'=>'Generyczna zawartość strony 3'),
-    array('nazwa'=>'podstrona 4', 'link'=>'site4.php', 'tresc'=>'Generyczna zawartość strony 4'),
-    array('nazwa'=>'podstrona 5', 'link'=>'site5.php', 'tresc'=>'Generyczna zawartość strony 5')
+    array('nazwa'=>'podstrona 1', 'link'=>'site1', 'tresc'=>'Generyczna zawartość strony 1'),
+    array('nazwa'=>'podstrona 2', 'link'=>'site2', 'tresc'=>'Generyczna zawartość strony 2'),
+    array('nazwa'=>'podstrona 3', 'link'=>'site3', 'tresc'=>'Generyczna zawartość strony 3'),
+    array('nazwa'=>'podstrona 4', 'link'=>'site4', 'tresc'=>'Generyczna zawartość strony 4'),
+    array('nazwa'=>'podstrona 5', 'link'=>'site5', 'tresc'=>'Generyczna zawartość strony 5'),
+    array('nazwa'=>'podstrona 6', 'link'=>'site6', 'tresc'=>'Generyczna zawartość strony 6')
 );
 ?>
 <!DOCTYPE html>
@@ -23,10 +24,33 @@ $arrayOfSubpages = array(
     </head>
     <body>
         <h1>Lista podstron!</h1>
-        <?php
-            var_dump($arrayOfSubpages);
-        ?>
         <ul>
+        <?php
+            // var_dump($arrayOfSubpages);
+            foreach ($arrayOfSubpages as $page) {
+                $format = '<li><a href="index.php?link=%s">%s</a></li>';
+                echo sprintf($format, $page['link'], $page['link']);
+            }
+            if (isset($_GET["link"])) {
+                # code...
+                $siteFound = false;
+                foreach ($arrayOfSubpages as $page) {
+                    if ($_GET["link"]==$page['link']) {
+                        echo "<h1>".$page['nazwa']."</h1>";
+                        echo "<span>".$page["tresc"]."</span>";
+                        $siteFound = true;
+                        break;
+                    }
+                }
+                if (!$siteFound) {
+                    echo "podana strona nie została znaleziona, sprawdź link i spróbuj ponownie";
+                    echo '<a href="index.php"><button>Zabierz mnie stąd!</button></a>';
+                }
+            }else{
+                echo "<h1>".$arrayOfSubpages[0]["nazwa"]."</h1>";
+                echo "<span>".$arrayOfSubpages[0]["tresc"]."</span>";
+            }
+        ?>
         </ul>
     </body>
 </html>

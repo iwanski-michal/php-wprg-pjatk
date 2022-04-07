@@ -17,8 +17,10 @@ if (isset($_POST['numberOfPeople']) && !empty($_POST['numberOfPeople']) && is_nu
     $dateNow = date('Y-m-d');
     if ($startDate < $dateNow || $endDate < $dateNow) {
         echo "Wybrana data jest z przeszłości! <br/> Nie obsługujemy jeszcze wycieczek w przeszłość!";
+        return;
     }else if ($startDate > $endDate) {
         echo "Data wyjazdu jest późniejsza niż data wyjazdu.";
+        return;
     }
     $daysCount = $startDate->diff($endDate)->format('%r%a')+1;
     // echo "Działamy dalej";
