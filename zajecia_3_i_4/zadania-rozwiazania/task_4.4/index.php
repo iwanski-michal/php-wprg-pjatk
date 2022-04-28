@@ -146,10 +146,10 @@
             Submit
         </button>
     <?php 
-    if ($_GET) {
-        # code...
-    }
-    if(isset($_COOKIE['voted']) && $_COOKIE['voted'] == true){
+    if(isset($_COOKIE['voted']) && $_COOKIE['voted'] == true && isset($_GET['voted']) && $_GET['voted'] == true){
+        $_GET['voted'] = false;
+        echo "Oddano głos";
+    }else{
         echo "Już głosowałeś mordo!";
         echo "Następny głos możesz oddać jutro <br/>";
         echo "Albo jak skasujesz ciastko, co jest dziecinnie proste";
