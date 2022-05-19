@@ -1,4 +1,1 @@
-XDDDDDJohn Smith
-John Smith
-John Smith
-Array{"name":"23","email":"432@ww.l","age":"432","piwoszRodzaj":"nieStudent","recommed":"on","subject":["RBD","WPRG","AM","FIZ"]}
+{"name":"Iwan Iwan","email":"ognioman@gmail.com","age":"123","piwoszRodzaj":"piwoEnjoyer","recommed":"on","subject":["RBD","WF","ANG"]}{"name":"Iwan Iwan","email":"ognioman@gmail.com","age":"123","piwoszRodzaj":"piwoEnjoyer","recommed":"on","subject":["RBD","WF","ANG"]}

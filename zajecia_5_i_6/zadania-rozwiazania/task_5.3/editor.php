@@ -1,10 +1,11 @@
     <?php
-$rows = array_map('str_getcsv', file('data.csv'));
-$header = array_shift($rows);
-$arrayOfSubpages = array();
-foreach($rows as $row) {
-    $arrayOfSubpages[] = array_combine($header, $row);
-}
+        $file = fopen("data.csv","r")or die("nie udało się otworzyć pliku");
+        while (!feof($file) ) {
+           $arrayOfSubpages[] = fgetcsv($file);
+        }
+        fclose($file);
+        var_dump($arrayOfSubpages);
+        print_r($arrayOfSubpages);
 ?>
 
 <!DOCTYPE html>
@@ -52,13 +53,13 @@ tr:nth-child(even) {
             <th>treść podstrony</th>
             <th>akcja</th>
             </tr>
-                <form action="" method="post">
+                <form action="process_data.php" method="post">
                     <?php
                 foreach($arrayOfSubpages as $page){
                     $format = '<tr>
                     <td><input type="text" value="%s"> </input></td>
                     <td><input type="text" value="%s"> </input></td>
-                    <td><textarea rows="2" cols="33">%s</textarea></td>
+                    <td><textarea rows="2" cols="33">%s</textarea></td>s
                     <td><button class="delete" value="%s">usuń</button></td>
                     </tr>';
                     echo sprintf($format, $page['nazwa'], $page['link'], $page['tresc'], $page['nazwa'] );
@@ -68,11 +69,11 @@ tr:nth-child(even) {
     <br>
     <div style="text-align: center;">
 
-        <button onclick="addNew()" >dodaj nową podstronę</button>
+        <!-- <button onclick="addNew()" >dodaj nową podstronę</button> -->
         <button type="submit">zapisz</button>
     </div>
         </form>
-        <script>
+        <!-- <script>
             function addNew(){
                 var table = document.getElementByTagName("table");
                 var newRow = "";
@@ -80,6 +81,9 @@ tr:nth-child(even) {
                 table.appendChild(newRow);
                 alert("DziekiDziala");
             }
-        </script>
+        </script> -->
+        <?php
+        var_dump($_POST);
+        ?>
     </body>
 </html>
