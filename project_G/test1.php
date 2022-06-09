@@ -1,6 +1,26 @@
 <?php
-require_once "projekt.php";
-//session_start();
+// require_once "projekt.php";
+session_start();
+function updatePlayedGames(){
+    $dbuser = 'm29333_grzona';
+    $dbpass = 'Grzona123';
+    $pdo = new PDO("mysql:host=mysql.ct8.pl;dbname=m29333_grzona", $dbuser, $dbpass) or die("Błąd inicjalizaji bazy :C");
+
+    $sql = 'UPDATE `users` SET gamesPlayed = gamesPlayed+1 WHERE email = ? OR email = ?'; //LIMIT 1 żeby nie szukał dalej jak znajdzie już chociaż jeden rekord
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(1, $_SESSION['email'], PDO::PARAM_STR); //pierwszy gracz update
+    $stmt->bindParam(2, $_SESSION['email_2'], PDO::PARAM_STR); //drugi gracz update
+    $stmt->execute();
+}
+function updateWonGames($winnerEmail){
+    $dbuser = 'm29333_grzona';
+    $dbpass = 'Grzona123';
+    $pdo = new PDO("mysql:host=mysql.ct8.pl;dbname=m29333_grzona", $dbuser, $dbpass) or die("Błąd inicjalizaji bazy :C");
+    $sql = 'UPDATE `users` SET GamesWon = GamesWon+1 WHERE email = ?'; //LIMIT 1 żeby nie szukał dalej jak znajdzie już chociaż jeden rekord
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(1, $winnerEmail, PDO::PARAM_STR); 
+    $stmt->execute();
+}
 /*-------------CHANGE TURN------------*/
 function changeTurn(){
     //var_dump($_SESSION['turn']);
@@ -124,6 +144,7 @@ if(!empty($_SESSION['board'])){
     <meta charset="UTF-8">
 </head>
 <body>
+    <a href="logout.php"><h3 style="text-align: right;">WYLOGUJ</h3></a>
 <form method="get">
     <div class="tabela">
     <table>
@@ -144,11 +165,21 @@ if(!empty($_SESSION['board'])){
                 echo '</tr>';
             }
             if($_SESSION['WINNER']<>"none"){
-                echo '<h1>'.$_SESSION['WINNER'].' wygrał</h1>';
-            }
-            if($_SESSION['countTurn']==9){
+                if ($_SESSION['WINNER']=="X") {
+                    echo $_SESSION['nickname'] ." wygrał z ". $_SESSION['nickname_2'];
+                    updateWonGames($_SESSION['email']);
+                }else{
+                    echo $_SESSION['nickname_2'] ." wygrał z ". $_SESSION['nickname'];
+                    updateWonGames($_SESSION['email_2']);
+                }
+                updatePlayedGames();
+                echo "<br>";
+                echo "<a href=\"scoreboard.php\">zobacz tablicę wyników</a>";
+            }else if($_SESSION['countTurn']==9){
                 echo '<h1> REMIS</h1>';
+                updatePlayedGames();
             }
+            
             ?>
         </center>
 

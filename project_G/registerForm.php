@@ -23,6 +23,8 @@
             <input type="password" name="password"> <br>
             <br>
             <input type="submit" name value="Zarejestruj">
+            <br>
+            Masz konto? <a href="loginForm.php"> Zaloguj się </a>
         </form>
         <?php if (isset($_SESSION['err'])){echo $_SESSION['err'];}; ?>
         </div>

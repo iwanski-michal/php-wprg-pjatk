@@ -1,8 +1,7 @@
 <?php session_start();
                  function checkData(){
 
-                        if (isset($_POST['firstName']) && strlen($_POST['firstName']) && 
-                            isset($_POST['lastName']) && strlen($_POST['lastName']) && 
+                        if (
                             isset($_POST['email']) && strlen($_POST['email']) && 
                             isset($_POST['password']) && strlen($_POST['password']) 
                             ){
@@ -22,39 +21,49 @@
                         }
                     }
 
-                    function tryLogin($firstname, $lastname, $email, $password){
+                    function tryLogin($email, $password){
 
-                        $dbuser = 'root';
-                        $dbpass = '';
+                        $dbuser = 'm29333_michal';
+                        $dbpass = 'Michal123';
                         // var_dump($email);
                         // var_dump($password);
-                        $pdo = new PDO("mysql:host=localhost;dbname=cars", $dbuser, $dbpass) or die ("Błąd inicjalizaji bazy :C");
-                        $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email AND pass=:pass");
+                        $pdo = new PDO("mysql:host=mysql.ct8.pl;dbname=m29333_forsurenotstepik", $dbuser, $dbpass) or die ("Błąd inicjalizaji bazy :C");
+                        $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email AND password=:pass");
                         $stmt->execute(array(":email"=>$email, ":pass"=>$password));
+
+                        if ($stmt->rowCount() == 0) {
+                            $_SESSION['err'] = "Błędny login lub hasło";
+                            return false;
+                        }
+
                         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         // var_dump($arr[0]);
                         print_r($arr);
                         echo "<br>";
                         print_r($arr[0]['id']);
-                        echo $arr[0][0]->id;
                         $_SESSION['id'] = $arr[0]['id'];
                         $_SESSION['email'] = $arr[0]['email'];
-                        $_SESSION['firstname'] = $arr[0]['firstName'];
-                        $_SESSION['lastname'] = $arr[0]['lastName'];
-                        header("Location: site.php");
+                        $_SESSION['firstName'] = $arr[0]['firstName'];
+                        $_SESSION['lastName'] = $arr[0]['lastName'];
+                        return true;
                     }
 
             if (isset($_SESSION['email'])) {
                 unset($_SESSION['err']);
-                header("Location: site.php");
+                header("Location: dashboard.php");
             }
             
             if (!checkData()) {
                 //cant login;
                 header("Location: index.php");
+                exit();
             }
-            tryLogin($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['password']);
-            
+
+            if (!tryLogin($_POST['email'], $_POST['password'])) {
+                header("Location: index.php");
+                exit();
+            }
+            header("Location: dashboard.php");
             ?>
     </div>
 

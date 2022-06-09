@@ -2,7 +2,7 @@
 session_start();
 var_dump($_SESSION['id']);
 if (empty($_SESSION['id']) && empty($_SESSION['email'])) {
-    header("Location: loginForm.php");
+    header("Location: index.php");
 }
 $dbuser = 'root';
 $dbpass = '';

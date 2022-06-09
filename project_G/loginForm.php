@@ -13,16 +13,16 @@
 
 <body>
     <div class="main" style="text-align: center;">
-        <h1> Zarejestruj się</h1>
-        <form action="register.php" method="POST">
-            Twój nick:<br>
-            <input type="text" name="nickname"> <br>
+        <h1> Zaloguj się</h1>
+        <form action="login.php" method="POST">
             Email: <br>
             <input type="text" name="email"> <br>
             Hasło: <br>
             <input type="password" name="password"> <br>
             <br>
             <input type="submit" name value="Zaloguj">
+            <br>
+            Nie masz konta? <a href="registerForm.php"> Zarejestruj się! </a>
         </form>
         <?php if (isset($_SESSION['err'])){echo $_SESSION['err'];}; ?>
         </div>
