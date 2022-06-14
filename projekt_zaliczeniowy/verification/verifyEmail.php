@@ -33,11 +33,18 @@ if ($stmt->rowCount() == 0) {
 }
 else {
     #update users set verified = 1 where verificationCode = $code
-    $stmt = $db->prepare("UPDATE users SET verified = 1 WHERE verificationCode = :code" );
+    $stmt = $db->prepare("UPDATE users SET isVerified = 1 WHERE verificationCode = :code" );
     $stmt->execute(array(":code"=>$code));
-    echo "<h2>Twoje konto zostało aktywowane, możesz się zalogować</h2></br>";
-    $_SESSION['err'] = '';
-    echo "<v-btn href=\"../index.php\" primary outlined>Zaloguj się</v-btn>";
+    #check if update was successful
+    if ($stmt->rowCount() == 0) {
+        echo "<h2>Błąd, nie udało się zweryfikować konta</h2>";
+        echo "<v-btn primary outlined>Wyślij e-mail jeszcze raz</v-btn>";
+    }
+    else {
+      echo "<h2>Twoje konto zostało aktywowane, możesz się zalogować</h2></br>";
+      $_SESSION['err'] = '';
+      echo "<v-btn href=\"../index.php\" primary outlined>Zaloguj się</v-btn>";
+    }
 }
 
 

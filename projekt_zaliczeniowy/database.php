@@ -2,12 +2,16 @@
 
 final class Database
 {
-    private static ?Database $instance = null;
+    private static $instance = null;
     private const DB_HOST = "localhost";
     private const DB_NAME = "forsurenotstepik";
     private const DB_USERNAME = "root";
     private const DB_PASSWORD = "";
-    public PDO $connection;
+    // private const DB_HOST = "mysql.ct8.pl";
+    // private const DB_NAME = "m29333_forsurenotstepik";
+    // private const DB_USERNAME = "m29333_michal";
+    // private const DB_PASSWORD = "Michal123";
+    public $connection;
 
     public static function getInstance(): Database
     {

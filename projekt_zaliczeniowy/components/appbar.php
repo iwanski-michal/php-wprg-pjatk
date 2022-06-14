@@ -19,8 +19,8 @@
         <v-icon>mdi-account-cog</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn icon href="dashboard.php?site=changeLog">
+        <v-icon>mdi-update</v-icon>
       </v-btn>
       <v-btn rounded outlined href="logout.php">
           wyloguj

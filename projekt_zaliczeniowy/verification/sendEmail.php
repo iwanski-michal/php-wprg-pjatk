@@ -26,8 +26,8 @@ class sendEmail
             $mail->addAddress($mailTo, "$firstName $lastName");
             $mail->CharSet = 'UTF-8';
             $mail->Subject = 'Weryfikacja adresu e-mail';
+            // $mail->Body= "Witaj ". $firstName.", Wciśnij ten przycisk, aby potwierdzić rejestrację: <a href=\"http://francis.ct8.pl/michal/verification/verifyEmail.php?code=$code\">Weryfikuj</a>";
             $mail->Body= "Witaj ". $firstName.", Wciśnij ten przycisk, aby potwierdzić rejestrację: <a href=\"http://localhost/projekt_zaliczeniowy/verification/verifyEmail.php?code=$code\">Weryfikuj</a>";
-            // $mail->Body = "Witaj ". $firstName.", Wciśnij ten przycisk, aby potwierdzić rejestrację: <a href=\"ROOT_PATH/verification/verifyEmail.php?code=$code\">Weryfikuj</a>";
             $mail->send();
 
             echo 'Wiadomość została wysłana!';

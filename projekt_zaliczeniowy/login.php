@@ -26,7 +26,7 @@ $db = Database::getInstance()->getConnection();
                     function tryLogin($db, $email, $password){
 
                         #check if user is verified
-                        $sql = 'SELECT 1 from users WHERE email = ? AND verified = 1 LIMIT 1';
+                        $sql = 'SELECT 1 from users WHERE email = ? AND isVerified = 1 LIMIT 1';
                         $stmt = $db->prepare($sql);
                         $stmt->bindParam(1, $email, PDO::PARAM_STR);
                         $stmt->execute();
