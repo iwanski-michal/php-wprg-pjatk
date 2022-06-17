@@ -12,7 +12,8 @@
       <v-main>
         <v-container>
         <h1>Rejestracja przebiegła pomyślnie</h1>
-        <h2>Zaloguj się na podane dane, aby móc zacząć grać!</h2>
+        <h2>Sprawdź swoją skrzynkę pocztową, aby potwierdzić rejestrację.</h2>
+        <p>Sprawdź też folder spam, jeśli nie widzisz żadnej nowej wiadomości</p>
         <v-btn
         href="index.php"
             type="submit"

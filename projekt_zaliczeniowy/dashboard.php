@@ -16,8 +16,15 @@
       <v-app>
         <?php include(ROOT_PATH."/components/appbar.php");?>
       <v-main>
-        <v-container>
-            <h1>Dashboard</h1>
+        <v-container mt-12>
+        <?php
+        if (isset($_GET['site'])) {
+          // var_dump($_GET);
+          $path=$_GET['site'];
+          // var_dump($path);
+          include(ROOT_PATH."/views/".$_GET['site'].".php");
+        }
+        ?>
             <v-navigation-drawer
       v-model="drawer"
       absolute
@@ -29,6 +36,7 @@
         >
           <v-list-item
             link
+            href="dashboard.php?site=yourClasses"
           >
             <v-list-item-icon>
               <v-icon>mdi-view-dashboard</v-icon>
@@ -41,6 +49,7 @@
 
           <v-list-item
             link
+            href="dashboard.php?site=yourCourses"
           >
             <v-list-item-icon>
               <v-icon>mdi-forum</v-icon>

@@ -1,4 +1,6 @@
 <?php session_start();
+include("database.php");
+$db = Database::getInstance()->getConnection();
                  function checkData(){
 
                         if (
@@ -21,14 +23,21 @@
                         }
                     }
 
-                    function tryLogin($email, $password){
+                    function tryLogin($db, $email, $password){
 
-                        $dbuser = 'm29333_michal';
-                        $dbpass = 'Michal123';
-                        // var_dump($email);
-                        // var_dump($password);
-                        $pdo = new PDO("mysql:host=mysql.ct8.pl;dbname=m29333_forsurenotstepik", $dbuser, $dbpass) or die ("Błąd inicjalizaji bazy :C");
-                        $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email AND password=:pass");
+                        #check if user is verified
+                        $sql = 'SELECT 1 from users WHERE email = ? AND verified = 1 LIMIT 1';
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+                        $stmt->execute();
+                        if (!$stmt->fetchColumn()) {
+                            $_SESSION['err'] = "Nie zweryfikowano konta";
+                            return false;
+                        }
+
+
+
+                        $stmt = $db->prepare("SELECT * FROM users WHERE email=:email AND password=:pass");
                         $stmt->execute(array(":email"=>$email, ":pass"=>$password));
 
                         if ($stmt->rowCount() == 0) {
@@ -59,7 +68,7 @@
                 exit();
             }
 
-            if (!tryLogin($_POST['email'], $_POST['password'])) {
+            if (!tryLogin($db, $_POST['email'], $_POST['password'])) {
                 header("Location: index.php");
                 exit();
             }

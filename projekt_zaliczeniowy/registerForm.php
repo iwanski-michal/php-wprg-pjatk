@@ -59,6 +59,17 @@
           placeholder="***********"
           outlined
         ></v-text-field>
+        <v-radio-group v-model="userType" name="userType">
+          <v-radio
+            default
+            label="Jestem Studentem"
+            value="student"
+          ></v-radio>
+          <v-radio
+            label="Jestem Nauczycielem"
+            value="teacher"
+          ></v-radio>
+        </v-radio-group>
           <v-btn
           type="submit"
           value="Zarejestruj"
@@ -104,6 +115,11 @@
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
+      data(){
+          return{
+              userType: 1
+          }
+      }
     })
   </script>
 </body>
